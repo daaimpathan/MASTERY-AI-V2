@@ -86,6 +86,20 @@ async def startup_event():
         print(f"API KEY LOADED: {settings.GEMINI_API_KEY[:5]}... (Length: {len(settings.GEMINI_API_KEY)})")
     else:
         print("!!! WARNING: GEMINI_API_KEY IS MISSING !!!")
+
+    # Auto-seed database for Render Free Tier (where Shell is disabled)
+    try:
+        print("ATTEMPTING AUTO-SEEDING...")
+        import sys
+        import os
+        # Add parent directory to path to find seed.py
+        sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        from seed import seed_data
+        seed_data()
+        print("AUTO-SEEDING COMPLETED SUCCESSFULLY")
+    except Exception as e:
+        print(f"AUTO-SEEDING SKIPPED OR FAILED: {e}")
+
     print("--------------------------------------------------")
 
 from fastapi.staticfiles import StaticFiles
