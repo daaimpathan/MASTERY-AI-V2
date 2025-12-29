@@ -50,6 +50,81 @@ I enabled **"Network Mode"** for your app so your phone can see it.
 
 ---
 
+## 🌐 Deploy to Production
+
+### 🚀 Deploy Backend to Render
+
+1. **Go to [Render.com](https://render.com)** and sign in with GitHub
+
+2. **Click "New +" → "Web Service"**
+
+3. **Connect your repository:** `daaimpathan/MASTERY-AI-V2`
+
+4. **Configure the service:**
+   - **Name:** `mastery-ai-backend`
+   - **Region:** Choose closest to you
+   - **Branch:** `main`
+   - **Root Directory:** `backend`
+   - **Runtime:** `Python 3`
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+
+5. **Add Environment Variables:**
+   ```
+   DATABASE_URL=<your-postgresql-url>
+   REDIS_URL=<your-redis-url>
+   SECRET_KEY=<generate-random-secret>
+   GEMINI_API_KEY=<your-gemini-key>
+   ALLOWED_ORIGINS=https://your-frontend-url.netlify.app
+   ```
+
+6. **Add PostgreSQL Database:**
+   - Click "New +" → "PostgreSQL"
+   - Copy the **Internal Database URL**
+   - Paste it as `DATABASE_URL` in your web service
+
+7. **Add Redis:**
+   - Click "New +" → "Redis"
+   - Copy the **Internal Redis URL**
+   - Paste it as `REDIS_URL` in your web service
+
+8. **Click "Create Web Service"** and wait for deployment!
+
+9. **Copy your backend URL:** `https://mastery-ai-backend.onrender.com`
+
+---
+
+### 🎨 Deploy Frontend to Netlify
+
+1. **Go to [Netlify.com](https://netlify.com)** and sign in with GitHub
+
+2. **Click "Add new site" → "Import an existing project"**
+
+3. **Connect to GitHub** and select: `daaimpathan/MASTERY-AI-V2`
+
+4. **Configure build settings:**
+   - **Base directory:** `frontend`
+   - **Build command:** `npm run build`
+   - **Publish directory:** `frontend/dist`
+
+5. **Add Environment Variables** (Site settings → Environment variables):
+   ```
+   VITE_API_URL=https://mastery-ai-backend.onrender.com
+   VITE_FIREBASE_API_KEY=<your-firebase-key>
+   VITE_FIREBASE_PROJECT_ID=<your-project-id>
+   VITE_FIREBASE_AUTH_DOMAIN=<your-auth-domain>
+   VITE_FIREBASE_STORAGE_BUCKET=<your-storage-bucket>
+   VITE_FIREBASE_MESSAGING_SENDER_ID=<your-sender-id>
+   VITE_FIREBASE_APP_ID=<your-app-id>
+   ```
+
+6. **Click "Deploy site"** and wait!
+
+7. **Your app is live!** 🎉
+   - URL: `https://your-app-name.netlify.app`
+
+---
+
 ## ✨ Features
 
 ### 🎯 For Students
@@ -99,7 +174,7 @@ I enabled **"Network Mode"** for your app so your phone can see it.
 
 ---
 
-## 🛠️ Installation & Setup
+## 🛠️ Local Development Setup
 
 ### Prerequisites
 - **Node.js** 18+ and npm
@@ -178,6 +253,7 @@ DATABASE_URL=postgresql://user:password@localhost:5432/mastery_db
 REDIS_URL=redis://localhost:6379/0
 SECRET_KEY=your-secret-key-here
 GEMINI_API_KEY=your-gemini-api-key
+ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
 ```
 
 ### Frontend (.env)
@@ -185,6 +261,10 @@ GEMINI_API_KEY=your-gemini-api-key
 VITE_API_URL=http://localhost:8000
 VITE_FIREBASE_API_KEY=your-firebase-api-key
 VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+VITE_FIREBASE_APP_ID=your-app-id
 ```
 
 ---
@@ -217,6 +297,8 @@ MASTERY-AI-V2/
 │   │   ├── services/     # API services
 │   │   └── store/        # State management
 │   └── package.json
+├── netlify.toml          # Netlify config
+├── render.yaml           # Render config
 └── README.md
 ```
 
@@ -251,6 +333,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Google Gemini API for AI capabilities
 - Firebase for real-time features
+- Render.com for backend hosting
+- Netlify for frontend hosting
 - Open source community for amazing tools
 
 ---
