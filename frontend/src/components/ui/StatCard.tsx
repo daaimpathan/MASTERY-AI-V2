@@ -9,11 +9,12 @@ interface StatCardProps {
     icon: LucideIcon;
     trend?: string;
     color?: string;
+    className?: string;
 }
 
-export const StatCard = ({ label, value, icon: Icon, trend, color = 'text-primary-400' }: StatCardProps) => {
+export const StatCard = ({ label, value, icon: Icon, trend, color = 'text-primary-400', className }: StatCardProps) => {
     return (
-        <Card className="group">
+        <Card className={cn("group", className)}>
             <div className="flex items-start justify-between mb-4">
                 <div className={cn("p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10", color)}>
                     <Icon className="w-6 h-6" />

@@ -1,6 +1,6 @@
-import { useRef, useMemo, useState, useEffect } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Stars, Text } from '@react-three/drei';
+import { OrbitControls, Stars, Text, Line } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface Concept {
@@ -91,7 +91,7 @@ function ConceptStar({ concept }: { concept: Concept }) {
 // Connection lines between related concepts
 function ConstellationLines({ concepts }: { concepts: Concept[] }) {
     const lines = useMemo(() => {
-        const result: JSX.Element[] = [];
+        const result = [];
 
         concepts.forEach((concept) => {
             concept.connections?.forEach((connectedId) => {
@@ -101,17 +101,16 @@ function ConstellationLines({ concepts }: { concepts: Concept[] }) {
                         new THREE.Vector3(...concept.position),
                         new THREE.Vector3(...connected.position)
                     ];
-                    const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
                     result.push(
-                        <line key={`${concept.id}-${connectedId}`} geometry={geometry}>
-                            <lineBasicMaterial
-                                color="#6366f1"
-                                transparent
-                                opacity={0.3}
-                                linewidth={1}
-                            />
-                        </line>
+                        <Line
+                            key={`${concept.id}-${connectedId}`}
+                            points={points}
+                            color="#6366f1"
+                            transparent
+                            opacity={0.3}
+                            lineWidth={1}
+                        />
                     );
                 }
             });

@@ -31,6 +31,7 @@ import { StatCard } from '../../components/ui/StatCard';
 import { Button } from '../../components/ui/Button';
 import { cn } from '../../utils/cn';
 import NeuralBackground from '../landing/NeuralBackground';
+import { Rubric } from '../../types';
 
 const TeacherDashboard = () => {
     const navigate = useNavigate();
