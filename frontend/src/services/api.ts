@@ -41,7 +41,7 @@ api.interceptors.response.use(
                     throw new Error('No refresh token available');
                 }
 
-                const response = await axios.post('http://localhost:8000/api/v1/auth/refresh', { refresh_token: refreshToken });
+                const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1'}/auth/refresh`, { refresh_token: refreshToken });
                 const { access_token } = response.data;
                 localStorage.setItem('access_token', access_token);
                 originalRequest.headers.Authorization = `Bearer ${access_token}`;
