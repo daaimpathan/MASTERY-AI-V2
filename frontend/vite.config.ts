@@ -10,7 +10,18 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+
+      // ✅ THIS IS THE FIX (important)
+      workbox: {
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5 MB
+      },
+
+      includeAssets: [
+        'favicon.ico',
+        'apple-touch-icon.png',
+        'mask-icon.svg'
+      ],
+
       manifest: {
         name: 'Mastery.AI',
         short_name: 'Mastery.AI',
@@ -40,6 +51,7 @@ export default defineConfig({
       }
     })
   ],
+
   server: {
     proxy: {
       '/api/v1': {
