@@ -21,6 +21,7 @@ import { useState } from 'react';
 import FocusMode from '../focus/FocusMode';
 import FocusSetup from '../focus/FocusSetup';
 import { FocusProvider, useFocus } from '../focus/FocusContext';
+import StudentPollPopup from '../poll/StudentPollPopup';
 
 const DashboardContent = () => {
     // Mock data for student mastery radar chart
@@ -39,6 +40,8 @@ const DashboardContent = () => {
 
     return (
         <>
+            <StudentPollPopup />
+
             <FocusSetup
                 isOpen={isSetupOpen}
                 onClose={() => setIsSetupOpen(false)}
