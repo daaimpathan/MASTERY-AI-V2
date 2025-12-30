@@ -25,9 +25,43 @@ from datetime import datetime, timedelta
 import uuid
 import random
 
+def clear_database(db: Session):
+    """Clear all existing data from the database."""
+    print("Clearing existing data...")
+    try:
+        # Delete in reverse order of dependencies
+        db.query(StudentResponse).delete()
+        db.query(StudentAssignment).delete()
+        db.query(AssignmentQuestion).delete()
+        db.query(Assignment).delete()
+        db.query(StudentMastery).delete()
+        db.query(ConceptPrerequisite).delete()
+        db.query(Concept).delete()
+        db.query(AttendanceRecord).delete()
+        db.query(EngagementIndex).delete()
+        db.query(EngagementEvent).delete()
+        db.query(ProjectSubmission).delete()
+        db.query(ProjectAssignment).delete()
+        db.query(RubricCriterion).delete()
+        db.query(Rubric).delete()
+        db.query(Project).delete()
+        db.query(Enrollment).delete()
+        db.query(Class).delete()
+        db.query(User).delete()
+        db.query(Institution).delete()
+        db.commit()
+        print("Database cleared successfully!")
+    except Exception as e:
+        db.rollback()
+        print(f"Error clearing database: {e}")
+        raise
+
 def seed_data():
     db = SessionLocal()
     try:
+        # Clear existing data first
+        clear_database(db)
+        
         print("Seeding MASTERY.AI database...")
         
         # 1. Create Institution
