@@ -23,6 +23,9 @@ wheels/
 .installed.cfg
 *.egg
 
+# Allow frontend lib directory
+!frontend/src/lib/
+
 # Testing and Debug
 *.log
 debug_output.txt
